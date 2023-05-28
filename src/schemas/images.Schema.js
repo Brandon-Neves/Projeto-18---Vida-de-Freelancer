@@ -1,7 +1,7 @@
 import joi from 'joi'
 
 const validateImages = joi.object({
-  url: joi.url().required()
+  url: joi.string().uri().required()
 })
 
-export default validateCities
+export default validateImages

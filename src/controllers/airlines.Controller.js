@@ -1,12 +1,12 @@
 import { db } from '../database/database.js'
 
-export async function createImages(req, res) {
+export async function createAirlines(req, res) {
   const { name } = req.body
 
   try {
     await db.query(
       `INSERT INTO 
-    images (name)
+    airlines (name)
     VALUES ($1)`,
       [name]
     )
@@ -16,9 +16,9 @@ export async function createImages(req, res) {
   }
 }
 
-export async function getImages(req, res) {
+export async function getAirlines(req, res) {
   try {
-    const { rows } = await db.query(`SELECT * FROM images;`)
+    const { rows } = await db.query(`SELECT * FROM airlines;`)
     res.send(rows).status(200)
   } catch (err) {
     res.sendStatus(500)
