@@ -28,8 +28,11 @@ export async function getFlightsCityId(req, res) {
 
   try {
     const { rows } = await db.query(
-      `SELECT * FROM flights 
-      WHERE (id_city_to) = ($1);`,
+      `SELECT flights.id, flights.depart, flights.price,
+      c1.name AS cityfrom,
+      c2.name AS cityto FROM flights 
+      JOIN cities c1 ON id_city_from = c1.id 
+      JOIN cities c2 ON id_city_to = c2.id WHERE id_city_from = $1;`,
       [id]
     )
     if (rows.length === 0) return res.sendStatus(404)
@@ -41,9 +44,21 @@ export async function getFlightsCityId(req, res) {
 
 export async function getFlightsId(req, res) {
   const id = req.params.id
+  console.log(id)
 
   try {
-    const { rows } = await db.query(`SELECT * FROM flights WHERE id = $1`, [id])
+    const { rows } = await db.query(
+      `SELECT flights.depart, flights.return, flights.price,
+    c1.name AS cityfrom,
+    c2.name AS cityto,
+    airlines.name
+    FROM flights
+    JOIN cities c1 ON id_city_from = c1.id 
+    JOIN cities c2 ON id_city_to = c2.id
+    JOIN airlines ON id_airline = airlines.id
+    WHERE flights.id = $1;`,
+      [id]
+    )
     if (rows.length === 0) return res.sendStatus(404)
     res.send(rows[0]).status(200)
   } catch (err) {
