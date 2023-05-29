@@ -1,7 +1,7 @@
 import { db } from '../database/database.js'
 
 export async function createHotels(req, res) {
-  const { name } = req.body
+  const { name, adress, price, description } = req.body
 
   try {
     await db.query(

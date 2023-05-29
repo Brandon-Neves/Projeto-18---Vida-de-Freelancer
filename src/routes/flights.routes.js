@@ -1,11 +1,16 @@
 import express from 'express'
 import { validateSchema } from '../middlewares/validateSchema.js'
 import validateFlights from '../schemas/flights.Schema.js'
-import { createFlights, getFlights } from '../controllers/flights.Controller.js'
+import {
+  createFlights,
+  getFlightsCityId,
+  getFlightsId
+} from '../controllers/flights.Controller.js'
 
-const hotelsRouter = express.Router()
+const flightsRouter = express.Router()
 
-hotelsRouter.post('/flights', validateSchema(validateFlights), createFlights)
-hotelsRouter.get('/flights', getFlights)
+flightsRouter.post('/flights', validateSchema(validateFlights), createFlights)
+flightsRouter.get('/flights/city/:id', getFlightsCityId)
+flightsRouter.get('/flights/:id', getFlightsId)
 
-export default hotelsRouter
+export default flightsRouter

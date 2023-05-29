@@ -6,6 +6,7 @@ import airlinesRouter from './routes/airlines.routes.js'
 import hotelsRouter from './routes/hotels.routes.js'
 import amenitiesRouter from './routes/amenties.routes.js'
 import imagesRouter from './routes/images.routes.js'
+import flightsRouter from './routes/flights.routes.js'
 
 dotenv.config()
 
@@ -15,6 +16,7 @@ app.use(express.json())
 
 app.use([
   citiesRouter,
+  flightsRouter,
   airlinesRouter,
   hotelsRouter,
   amenitiesRouter,
